@@ -9,8 +9,8 @@ project "Solver"
     language "C++"
     cppdialect "C++20"
 
-    targetdir "%{wks.location}/bin/%{cfg.name}-%{prj.name}"
-    objdir    "%{wks.location}/obj/%{cfg.name}-%{prj.name}"
+	targetdir "%{wks.location}/bin/%{cfg.name}"
+	objdir    "%{wks.location}/obj/%{cfg.name}"
 
     files {
         "src/**.cpp",
@@ -21,7 +21,14 @@ project "Solver"
         "src",
         "vendor/GLFW/include",
         "vendor/GLAD/include",
-        "vendor/STB/include"
+        "vendor/STB/include",
+		"vendor/ImGui",
+    }
+
+    links {
+        "GLAD",
+        "GLFW",
+        "ImGui"
     }
 
     filter "configurations:Debug"
@@ -37,6 +44,7 @@ project "Solver"
         optimize "speed"
 
 group "dependencies"
+    include "vendor/imgui.lua"
     include "vendor/glfw.lua"
     include "vendor/glad.lua"
 group ""

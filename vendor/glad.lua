@@ -3,8 +3,8 @@ project "GLAD"
 	language "C"
 	staticruntime "off"
 
-	targetdir "%{wks.location}/bin/%{cfg.name}-%{prj.name}"
-    objdir    "%{wks.location}/obj/%{cfg.name}-%{prj.name}"
+	targetdir "%{wks.location}/bin/%{cfg.name}"
+	objdir    "%{wks.location}/obj/%{cfg.name}"
 
 	files {
 		"GLAD/src/glad.c"
