@@ -12,6 +12,8 @@ void initialize_window(Window& window)
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
+	glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+
 	window.glfwWindow = glfwCreateWindow(window.width, window.height, window.title, 0, 0);
 	if(window.glfwWindow == 0)
 	{
@@ -77,6 +79,9 @@ void initialize_window(Window& window)
 		window.EventCallback(e);
 	});
 
+
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
 
 bool window_should_close(const Window& window)

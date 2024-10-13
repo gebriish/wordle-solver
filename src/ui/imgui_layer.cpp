@@ -20,16 +20,20 @@ void ImGuiLayer::init(const Window& window)
 	ImGui::CreateContext();
 	ImGuiIO& io = ImGui::GetIO();
 	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;
-	
 
-	ImGui::StyleColorsDark();
 	ImGuiStyle& style = ImGui::GetStyle();
+	style.WindowRounding = 5.3f;
+	style.FrameRounding = 2.3f;
+	style.ScrollbarRounding = 0;
 
+	style.Colors[ImGuiCol_WindowBg] = ImVec4(0x28/255.0f, 0x28/255.0f, 0x28/255.0f, 1.0f);
+
+	style.WindowTitleAlign = ImVec2(0.5f, 0);
 
 	ImGui_ImplGlfw_InitForOpenGL(window.glfwWindow, true);
 	ImGui_ImplOpenGL3_Init("#version 410");
 
-	io.Fonts->AddFontFromFileTTF("res/FiraCode-Regular.ttf", 22.0f);
+	io.Fonts->AddFontFromFileTTF("res/m5x7.ttf", 25.0f);
 }
 
 void ImGuiLayer::newFrame()

@@ -2,7 +2,7 @@
 #include <functional>
 #include "event.h"
 #include <cstdint>
-#include <ui/color.h>
+#include <renderer/color.h>
 
 struct GLFWwindow;
 
@@ -10,8 +10,8 @@ using EventCallbackFn = std::function<void(Event&)>;
 
 struct Window
 {
-	uint16_t width  = 600;
-	uint16_t height = 500;
+	uint16_t width  = 1280;
+	uint16_t height = 800;
 	const char* title = "untitled";
 	GLFWwindow* glfwWindow;
 
