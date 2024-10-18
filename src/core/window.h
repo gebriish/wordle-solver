@@ -1,12 +1,20 @@
 #pragma once
+#include <cstdint>
 #include <functional>
 #include "event.h"
-#include <cstdint>
-#include <renderer/color.h>
+#include "../ui/color.h"
 
 struct GLFWwindow;
 
 using EventCallbackFn = std::function<void(Event&)>;
+
+enum WindowFlags 
+{
+	WINDOWFLAG_NONE      = 0,
+	WINDOWFLAG_MAXIMIZED = 1 << 0,
+	WINDOWFLAG_RESIZABLE = 1 << 1,
+	WINDOWFLAG_VSYNC     = 1 << 2,
+};
 
 struct Window
 {
@@ -24,7 +32,7 @@ struct Window
 
 void set_event_callback(Window &window,const EventCallbackFn& callback);
 
-void initialize_window(Window& window);
+void initialize_window(Window& window, int flags);
 bool window_should_close(const Window& window);
 void clear_viewport(float, float, float, float);
 void clear_viewport(const Color& color);

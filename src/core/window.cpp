@@ -5,14 +5,15 @@
 #include <GLFW/glfw3.h>
 
 
-void initialize_window(Window& window)
+void initialize_window(Window& window, int flag)
 {
 	glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 6);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+	glfwWindowHint(GLFW_MAXIMIZED, flag & WINDOWFLAG_MAXIMIZED ? GLFW_TRUE : GLFW_FALSE);
+	glfwWindowHint(GLFW_RESIZABLE, flag & WINDOWFLAG_RESIZABLE ? GLFW_TRUE : GLFW_FALSE);
 
 	window.glfwWindow = glfwCreateWindow(window.width, window.height, window.title, 0, 0);
 	if(window.glfwWindow == 0)
@@ -23,7 +24,7 @@ void initialize_window(Window& window)
 	}
 
 	glfwMakeContextCurrent(window.glfwWindow);
-	glfwSwapInterval(0);
+	glfwSwapInterval(flag & WINDOWFLAG_VSYNC ? 1 : 0);
 
 	if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 	{
@@ -76,6 +77,13 @@ void initialize_window(Window& window)
 		Window& window = *(Window*)glfwGetWindowUserPointer(event_window);
 
 		Event e = Event::CreateScrollEvent(x, y);
+		window.EventCallback(e);
+	});
+
+	glfwSetCharCallback(window.glfwWindow, [](GLFWwindow* event_window, unsigned int codepoint) {
+		Window& window = *(Window*)glfwGetWindowUserPointer(event_window);
+
+		Event e = Event::CreateCharacterEvent(static_cast<char>(codepoint));
 		window.EventCallback(e);
 	});
 

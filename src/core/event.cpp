@@ -30,3 +30,10 @@ Event Event::CreateKeyEvent(int key, int scancode, int action, int mods) {
     e.keyData = { key, scancode, action, mods };
     return e;
 }
+
+Event Event::CreateCharacterEvent(char character)
+{
+    Event e(EventType::CHARACTER);
+    e.charData = { character };
+    return e;
+}

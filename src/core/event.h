@@ -7,6 +7,7 @@ enum class EventType
 	MOUSE_CLICK 	= 2,
 	KEY_CLICK   	= 3,
 	SCROLL 			= 4,
+    CHARACTER       = 5,
 };
 
 struct Event
@@ -19,6 +20,7 @@ struct Event
         struct { int button, action, mods; } mouseButtonData; 
         struct { int key, scancode, action, mods; } keyData;
         struct { double xScroll, yScroll; } scrollData;
+        struct { char character; } charData;
     };
 
 	Event(EventType eventType) : type(eventType) {}
@@ -28,4 +30,5 @@ struct Event
     static Event CreateCursorMoveEvent(double xPos, double yPos, double dx, double dy);
     static Event CreateMouseButtonEvent(int button, int action, int mods);
     static Event CreateKeyEvent(int key, int scancode, int action, int mods);
+    static Event CreateCharacterEvent(char character);
 };

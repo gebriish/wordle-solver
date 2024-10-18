@@ -4,7 +4,7 @@ project "ImGui"
     staticruntime "off"
 
 	targetdir "%{wks.location}/bin/%{cfg.name}"
-	objdir    "%{wks.location}/obj/%{cfg.name}"
+	objdir    "%{wks.location}/obj/"
 
 	files
 	{

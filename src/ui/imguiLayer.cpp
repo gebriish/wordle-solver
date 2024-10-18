@@ -1,12 +1,10 @@
-#include "imgui_layer.h"
+#include "imguiLayer.h"
 #include <core/window.h>
 
 #define IMGUI_IMPL_OPENGL_LOADER_GLAD
 #include <imgui.h>
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
-
-#include <stdio.h>
 
 ImGuiLayer::ImGuiLayer()
 {}
@@ -33,7 +31,7 @@ void ImGuiLayer::init(const Window& window)
 	ImGui_ImplGlfw_InitForOpenGL(window.glfwWindow, true);
 	ImGui_ImplOpenGL3_Init("#version 410");
 
-	io.Fonts->AddFontFromFileTTF("res/m5x7.ttf", 25.0f);
+	io.Fonts->AddFontFromFileTTF("res/FiraCode-Regular.ttf", 25.0f);
 }
 
 void ImGuiLayer::newFrame()

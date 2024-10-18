@@ -10,7 +10,7 @@ project "Solver"
     cppdialect "C++20"
 
 	targetdir "%{wks.location}/bin/%{cfg.name}"
-	objdir    "%{wks.location}/obj/%{cfg.name}"
+	objdir    "%{wks.location}/obj/"
 
     files {
         "src/**.cpp",
