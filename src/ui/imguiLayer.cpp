@@ -6,11 +6,6 @@
 #include <imgui_impl_glfw.h>
 #include <imgui_impl_opengl3.h>
 
-ImGuiLayer::ImGuiLayer()
-{}
-
-ImGuiLayer::~ImGuiLayer()
-{}
 
 void ImGuiLayer::init(const Window& window)
 {
@@ -23,11 +18,7 @@ void ImGuiLayer::init(const Window& window)
 	style.WindowRounding = 5.3f;
 	style.FrameRounding = 2.3f;
 	style.ScrollbarRounding = 0;
-
-	style.Colors[ImGuiCol_WindowBg] = ImVec4(0x28/255.0f, 0x28/255.0f, 0x28/255.0f, 1.0f);
-
-	style.WindowTitleAlign = ImVec2(0.5f, 0);
-
+	
 	ImGui_ImplGlfw_InitForOpenGL(window.glfwWindow, true);
 	ImGui_ImplOpenGL3_Init("#version 410");
 

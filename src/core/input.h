@@ -1,7 +1,7 @@
 #pragma once
 #include <iostream>
 
-enum ActionCode
+enum class ActionCode
 {
 	RELEASE = 0,
 	PRESS 	= 1,

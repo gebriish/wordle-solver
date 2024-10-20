@@ -15,15 +15,16 @@ Application::Application()
 	m_Window.width  = 800;
 	m_Window.height = 600;
 
-	initialize_window(m_Window, WINDOWFLAG_NONE);
+	initialize_window(m_Window, WINDOWFLAG_RESIZABLE);
 	set_event_callback(m_Window, std::bind(&Application::onEvent, this, std::placeholders::_1));	
 
-	m_ImGuiLayer.init(m_Window);
+	m_WordleLayer.onInit();
+	m_UiLayer.onInit();
 }
 
 Application::~Application()
 {
-	m_ImGuiLayer.cleanup();
+	m_UiLayer.cleanup();
 	destroy_window(m_Window);
 }
 
@@ -33,11 +34,12 @@ void Application::run()
 
 	while(!window_should_close(m_Window))
 	{
+		
 		float end_time = (float) glfwGetTime();
 		float deltaTime = end_time - begin_time;
 		begin_time = end_time;
 
-		clear_viewport(color_from_hexcode("13141c"));
+		clear_viewport(0.13, 0.13, 0.13, 1.0);
 
 		this->onUpdate(deltaTime);
 
@@ -47,12 +49,10 @@ void Application::run()
 
 void Application::onEvent(Event& e)
 {
+	m_UiLayer.onEvent(e);
 }
 
 void Application::onUpdate(float dt)
 {
-}
-
-void Application::onImGui(float dt)
-{
+	m_UiLayer.onUpdate(dt);
 }

@@ -14,7 +14,7 @@ project "Solver"
 
     files {
         "src/**.cpp",
-        "src/**.hpp"
+        "src/**.h"
     }
 
     includedirs {

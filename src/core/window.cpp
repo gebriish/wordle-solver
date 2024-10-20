@@ -12,6 +12,7 @@ void initialize_window(Window& window, int flag)
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
+
 	glfwWindowHint(GLFW_MAXIMIZED, flag & WINDOWFLAG_MAXIMIZED ? GLFW_TRUE : GLFW_FALSE);
 	glfwWindowHint(GLFW_RESIZABLE, flag & WINDOWFLAG_RESIZABLE ? GLFW_TRUE : GLFW_FALSE);
 
@@ -87,7 +88,6 @@ void initialize_window(Window& window, int flag)
 		window.EventCallback(e);
 	});
 
-
 	glEnable(GL_BLEND);
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 }
@@ -115,12 +115,18 @@ void clear_viewport(float r, float g, float b, float a)
 	glClear(GL_COLOR_BUFFER_BIT);
 }
 
-void clear_viewport(const Color& color)
-{
-	clear_viewport(color.r/255.0f, color.g/255.0f, color.b/255.0f, color.a/255.0f);
+void set_render_region(Window& window, int x, int y) {
+	window.width = x;
+	window.height = y;
+	glViewport(0, 0, x, y);
 }
 
 void set_event_callback(Window &window,const EventCallbackFn& callback)
 {
 	window.EventCallback = callback;
+}
+
+void close_window(Window& window)
+{
+	glfwSetWindowShouldClose(window.glfwWindow, GLFW_TRUE);
 }
