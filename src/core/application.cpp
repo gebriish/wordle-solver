@@ -34,7 +34,7 @@ void Application::run()
 
 	while(!window_should_close(m_Window))
 	{
-		
+		// time taken to render each frame of the application
 		float end_time = (float) glfwGetTime();
 		float deltaTime = end_time - begin_time;
 		begin_time = end_time;

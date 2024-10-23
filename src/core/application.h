@@ -8,7 +8,7 @@
 class Application
 {
 private:
-	static Application* s_Instance;	
+	static Application* s_Instance;	// Singleton pointer to the application
 
 public:
 	Application();

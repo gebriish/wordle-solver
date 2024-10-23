@@ -8,7 +8,7 @@ enum class ActionCode
 	REPEAT 	= 2,
 };
 
-enum KeyCode
+enum KeyCode	// picked up straight from <GLFW/glfw3.h>
 {
 	KEY_SPACE             = 32,
 	KEY_APOSTROPHE        = 39,  /* ' */

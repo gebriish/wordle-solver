@@ -2,6 +2,7 @@
 
 int main()
 {
+	// Simple entry point
 	Application app;
 	app.run();
 }

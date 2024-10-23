@@ -58,8 +58,16 @@ void UiLayer::onUpdate(float dt)
             if (ImGui::MenuItem("Reset", " ")) { 
 				Application::Get().wordleLayer().reset();
 			}
+
             ImGui::EndMenu();
         }
+		if (ImGui::BeginMenu("Views"))
+		{
+			if (ImGui::MenuItem("Input", " "))
+				input_open = !input_open;
+
+			ImGui::EndMenu();
+		}
 		ImGui::EndMenuBar();
 	}
 
@@ -93,8 +101,6 @@ void UiLayer::onUpdate(float dt)
 				buttonColor = ImVec4(0.13, 0.13, 0.13, 1.0f);
 			}
 
-			
-
 			ImGui::PushStyleColor(ImGuiCol_Button, buttonColor);
 			ImGui::PushStyleColor(ImGuiCol_ButtonHovered, buttonColor);
 			ImGui::PushStyleColor(ImGuiCol_ButtonActive, buttonColor);
@@ -117,8 +123,10 @@ void UiLayer::onUpdate(float dt)
 		}
 
 		ImGui::NewLine();
+		ImGui::NewLine();
 
-		if (ImGui::Button("Filter", ImVec2(contentRegion.x, 30))) {
+		ImGui::SetCursorPosX(contentRegion.x/2 - 50);
+		if (ImGui::Button("Okay", ImVec2(100, 30))) {
 			if(strlen(guess) == 5)
 			{
 				std::string word = guess;
