@@ -76,6 +76,7 @@ void UiLayer::onUpdate(float dt)
         {
             if (ImGui::MenuItem("Reset", " ")) { 
 				Application::Get().wordleLayer().reset();
+				next_guess = wordle_layer.getBestNextGuess();
 			}
 
             ImGui::EndMenu();

@@ -13,15 +13,11 @@ void WordleLayer::onInit()
 		std::cout << "failed to load wordle words list.\n";
 		Application::Get().exit();
 	}
-	
-	m_FilteredListSize = m_WordsListSize;
 }
 
 void WordleLayer::filterWordsList(const FilterQuerie& q)
 {
-	std::cout << "List size reduced form " << m_FilteredListSize;
-	filter_words_list(this->m_WordsList, this->m_WordsListSize, m_FilteredListSize, q, true);
-	std::cout << " to " << m_FilteredListSize << '\n';
+	filter_words_list(this->m_WordsList, this->m_WordsListSize, q);
 }
 
 std::string WordleLayer::getBestNextGuess() {
@@ -30,7 +26,6 @@ std::string WordleLayer::getBestNextGuess() {
 
 
 void WordleLayer::reset() {
-	m_FilteredListSize = m_WordsListSize;
 	for(int i=0; i<m_WordsListSize; i++)
 	{	
 		m_WordsList[i].excluded = false;

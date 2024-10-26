@@ -21,5 +21,5 @@ public:
 
 private:
 	Word m_WordsList[MAX_WORD_LIST_SIZE];
-	uint32_t m_WordsListSize, m_FilteredListSize;
+	uint32_t m_WordsListSize;
 };

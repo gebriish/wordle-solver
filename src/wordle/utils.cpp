@@ -7,74 +7,81 @@
 #include <string>
 #include <bitset>
 
-std::bitset<26> create_char_presence(const std::string& word) {
-    std::bitset<26> presence;
-    for (char c : word) {
-        presence.set(c - 'a');
-    }
-    return presence;
+uint32_t create_char_presence(const std::string &word) {
+    uint32_t b = 0;
+    for(int i=0; i<word.size(); i++)
+        b |= 1 << (word[i] - 'a');
+    return b;
 }
 
-void filter_words_list(Word *words, unsigned int size, uint32_t& filtered_list_size, const FilterQuerie& q, bool exclude) {
+void filter_words_list(Word *words, unsigned int size, const FilterQuerie& q)
+{
     static const uint8_t shifts[] = {1 << 0, 1 << 1, 1 << 2, 1 << 3, 1 << 4};
 
-    std::bitset<26> yellow_chars_presence;
+    uint32_t yellow_char_flags = 0;
 
-    for (int i = 0; i < 5; i++) {
-        if (q.yellow & shifts[i]) {
-            yellow_chars_presence.set(q.word[i] - 'a');
-        }
-    }
+    for(int i=0; i<5; i++)
+        if(q.yellow & shifts[i])
+            yellow_char_flags |= 1 << (q.word[i] - 'a');
 
-    for (unsigned int i = 0; i < size; i++) {
-        if (words[i].excluded) continue;
+
+    for(int i=0; i<size; i++)
+    {
+        if(words[i].excluded) continue;
 
         const std::string& word = words[i].string;
-        std::bitset<26> word_presence = create_char_presence(word);
+        uint32_t word_presence = create_char_presence(word);
 
-        bool exclude_word = false;
+        bool need_to_exclude = false;
 
-        // Check green and yellow constraints
-        for (int j = 0; j < 5; j++) {
+        for(int j = 0; j < 5; j++)
+        {
             uint8_t shift = shifts[j];
 
-            if (q.green & shift) {
-                if (word[j] != q.word[j]) {
-                    exclude_word = true;
+            if(q.green & shift)
+            {
+                if(word[j] != q.word[j])
+                {
+                    need_to_exclude = true;
                     break;
                 }
-            } else if (q.yellow & shift) {
-                if (word[j] == q.word[j] || !word_presence.test(q.word[j] - 'a')) {
-                    exclude_word = true;
+            }
+            else if(q.yellow & shift)
+            {
+                if(word[j] == q.word[j] || !(word_presence & 1 << (q.word[j] - 'a')))
+                {
+                    need_to_exclude = true;
                     break;
                 }
             }
         }
 
-        if (exclude_word) {
-            words[i].excluded = exclude;
-            filtered_list_size--;
-            continue;
-        }
+        for(int j = 0; j < 5; j++)
+        {
+            uint8_t shift = shifts[j];
 
-        // Check grey constraints
-        for (int j = 0; j < 5; j++) {
-            if ((q.green | q.yellow) & shifts[j]) continue;
+            if((q.green | q.yellow) & shift) continue;
 
             char grey_char = q.word[j];
-            if (!yellow_chars_presence.test(grey_char - 'a') && word_presence.test(grey_char - 'a')) {
-                exclude_word = true;
-                break;
+
+            for(int k = 0; k < 5; k++)
+            {
+                if((q.green) & shifts[k] || (yellow_char_flags & 1 << (q.word[j] - 'a'))) continue;
+
+                if(word[k] == q.word[j])
+                {
+                    need_to_exclude = true;
+                    break;
+                }
+
             }
+
+            if(need_to_exclude) break;
         }
 
-        if (exclude_word) {
-            words[i].excluded = exclude;
-            filtered_list_size--;
-        }
+        words[i].excluded = need_to_exclude;
     }
 }
-
 
 bool load_words_into_array(const char* path, Word *words, uint32_t& list_size)
 {
