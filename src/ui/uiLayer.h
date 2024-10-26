@@ -16,5 +16,6 @@ public:
 
 private:
 	ImGuiLayer m_ImGuiLayer;
+	std::string next_guess;
 	std::string color = "xxxxx";
 };

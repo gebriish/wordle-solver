@@ -38,6 +38,7 @@ void Application::run()
 		float end_time = (float) glfwGetTime();
 		float deltaTime = end_time - begin_time;
 		begin_time = end_time;
+		//---------------------------------------------------
 
 		clear_viewport(0.13, 0.13, 0.13, 1.0);
 

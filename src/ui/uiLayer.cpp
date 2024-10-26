@@ -7,6 +7,7 @@ bool open = true;
 void UiLayer::onInit()
 {
 	m_ImGuiLayer.init(Application::Get().window());
+	next_guess = Application::Get().wordleLayer().getBestNextGuess();
 }
 
 void UiLayer::cleanup()
@@ -15,22 +16,40 @@ void UiLayer::cleanup()
 }
 
 void UiLayer::onUpdate(float dt)
-{	
+{
 	static bool input_open = true;
 	static char guess[6] = "";
 
 	auto& window = Application::Get().window();
-	auto words_list = Application::Get().wordleLayer().GetWordsList();
-	auto words_size = Application::Get().wordleLayer().GetWordsListSize();
+	auto& wordle_layer = Application::Get().wordleLayer();
 
 	m_ImGuiLayer.newFrame();
+	
 	
 	ImGui::Begin("guesses");
 	ImVec2 contentRegion = ImGui::GetContentRegionAvail();
 
-	for(int i=0; i<words_size; i++)
+	ImGui::PushID(1);
+	ImGui::Text("Suggested: ");
+	ImGui::SameLine();
+	ImGui::PushStyleColor(ImGuiCol_Button, ImVec4(209/255.0, 109/255.0, 2/255.0, 1.0));
+	if(ImGui::Button(next_guess.c_str(), ImVec2(100, 30)))
 	{
-		auto& word = words_list[i];
+		for(int i=0; i<5; i++)
+			guess[i] = next_guess[i];
+		if(!input_open) {
+			input_open = true;
+		}
+		color = "xxxxx";
+	}
+	
+	ImGui::PopStyleColor();
+	ImGui::PopID();
+
+
+	for(int i=0; i<wordle_layer.getWordsListSize(); i++)
+	{
+		auto& word = wordle_layer.getWordsList()[i];
 		if(word.excluded) continue;
 		
 		if(ImGui::Button(word.string.c_str(), ImVec2(contentRegion.x, 30)))
@@ -91,6 +110,7 @@ void UiLayer::onUpdate(float dt)
 				label[0] = guess[i];
 				label[1] = '\0';
 			}
+
 			ImVec4 buttonColor;
 
 			if (color[i] == 'g') {
@@ -132,12 +152,11 @@ void UiLayer::onUpdate(float dt)
 				std::string word = guess;
 				FilterQuerie q;
 				create_querie(word, color, q);
-				filter_words_list(words_list, words_size, q);
-
+				wordle_layer.filterWordsList(q);
+				next_guess = wordle_layer.getBestNextGuess();
 				color = "xxxxx";
 			}
 		}
-
 		ImGui::End();
 	}
 
