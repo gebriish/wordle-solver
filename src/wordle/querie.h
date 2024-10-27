@@ -5,6 +5,7 @@
 struct Word {
 	std::string string;
 	bool excluded;
+    double score = 0.0;
 };
 
 struct FilterQuerie
