@@ -1,9 +1,8 @@
 # Wordle Solver
 
-A C++ program to help solve the popular game **Wordle** by filtering possible words and suggesting the best next guesses. This project is designed to help users refine their guesses efficiently based on provided feedback for each round.
+A C++ program to help solve the game **Wordle** by filtering possible words and suggesting the best next guesses.
 
 ![Wordle Solver Screenshot](res/screenshot.png)
-
 
 ## Overview
 This Wordle Solver filters through a dictionary of five-letter words to suggest the most likely candidates for the next guess. By marking letters as **green**, **yellow**, or **grey**, the solver helps narrow down possible solutions and provides helpful next guesses.
