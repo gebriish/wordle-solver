@@ -15,7 +15,7 @@ Application::Application()
 	m_Window.width  = 800;
 	m_Window.height = 600;
 
-	initialize_window(m_Window, WINDOWFLAG_RESIZABLE | WINDOWFLAG_MAXIMIZED);
+	initialize_window(m_Window, WINDOWFLAG_RESIZABLE);
 	set_event_callback(m_Window, std::bind(&Application::onEvent, this, std::placeholders::_1));	
 
 	m_WordleLayer.onInit();
