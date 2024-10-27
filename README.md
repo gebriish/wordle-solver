@@ -23,7 +23,7 @@ This Wordle Solver filters through a dictionary of five-letter words to suggest 
 ### Building the Solver
 1. Clone the repository:
    ```bash
-   git clone --recursive https://github.com/yourusername/wordle-solver.git
+   git clone --recursive https://github.com/gebriish/wordle-solver.git
    cd wordle-solver
 2. Create Project Files:
    ```bash
