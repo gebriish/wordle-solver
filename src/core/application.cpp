@@ -7,7 +7,7 @@
 
 Application* Application::s_Instance = nullptr;
 
-Application::Application()
+Application::Application(const char* path)
 {
 	s_Instance = this;
 
@@ -18,7 +18,7 @@ Application::Application()
 	initialize_window(m_Window, WINDOWFLAG_RESIZABLE);
 	set_event_callback(m_Window, std::bind(&Application::onEvent, this, std::placeholders::_1));	
 
-	m_WordleLayer.onInit();
+	m_WordleLayer.onInit(path);
 	m_UiLayer.onInit();
 }
 

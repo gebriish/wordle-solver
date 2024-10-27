@@ -4,12 +4,12 @@
 #include "../core/application.h"
 #include "utils.h"
 
-void WordleLayer::onInit()
+void WordleLayer::onInit(const char* path)
 {
 	std::string current;
 	std::fill(std::begin(m_TopTen), std::end(m_TopTen), 0);
 	
-	if(!load_words_into_array("res/WordleAnswersList.txt", m_WordsList, m_WordsListSize)) 
+	if(!load_words_into_array(path, m_WordsList, m_WordsListSize)) 
 	{
 		std::cout << "failed to load wordle words list.\n";
 		Application::Get().exit();
@@ -73,21 +73,17 @@ void WordleLayer::calculate_top_ten()
         auto& word = m_WordsList[i];
         if (word.excluded) continue;
 
-        // Try to insert this word into the sorted m_TopTen
         for (int j = 0; j < 10; j++)
         {
             auto& top_word = m_WordsList[m_TopTen[j]];
 
-            // If we find a lower score, insert and shift the others
             if (top_word.score < word.score)
             {
-                // Shift elements down to make room for the new word
                 for (int k = 9; k > j; k--)
                 {
                     m_TopTen[k] = m_TopTen[k - 1];
                 }
-
-                // Insert the new word
+				
                 m_TopTen[j] = i;
                 break;
             }

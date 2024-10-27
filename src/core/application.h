@@ -11,7 +11,7 @@ private:
 	static Application* s_Instance;	// Singleton pointer to the application
 
 public:
-	Application();
+	Application(const char* path);
 	~Application();
 
 	void run();

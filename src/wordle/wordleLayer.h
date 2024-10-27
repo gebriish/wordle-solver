@@ -12,7 +12,7 @@ public:
 
 	void reset();
 
-	void onInit();
+	void onInit(const char* path);
 	void filterWordsList(const FilterQuerie& q);
 	
 	inline uint32_t getLetterFrequency(uint8_t index) const {
