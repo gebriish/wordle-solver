@@ -21,7 +21,6 @@ project "Solver"
         "src",
         "vendor/GLFW/include",
         "vendor/GLAD/include",
-        "vendor/STB/include",
 		"vendor/ImGui",
     }
 
