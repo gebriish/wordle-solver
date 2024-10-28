@@ -37,5 +37,5 @@ This Wordle Solver filters through a dictionary of five-letter words to suggest 
 
 ### How to use
 - type your own input into the input field, or click one of the suggested guesses to select a word.
-- cycle through the color options by clicking the five buttons to batch the wordle color response.
+- cycle through the color options by clicking the five buttons to match the wordle color response.
 - Press okay, and continue the process.
