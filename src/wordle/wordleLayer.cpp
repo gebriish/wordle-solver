@@ -68,6 +68,8 @@ void WordleLayer::calculate_word_scores()
 
 void WordleLayer::calculate_top_ten()
 {
+    std::fill(m_TopTen, m_TopTen + 10, -1);
+
     for (int i = 0; i < m_WordsListSize; i++)
     {
         auto& word = m_WordsList[i];
@@ -75,15 +77,13 @@ void WordleLayer::calculate_top_ten()
 
         for (int j = 0; j < 10; j++)
         {
-            auto& top_word = m_WordsList[m_TopTen[j]];
-
-            if (top_word.score < word.score)
+            if (m_TopTen[j] == -1 || m_WordsList[m_TopTen[j]].score < word.score)
             {
                 for (int k = 9; k > j; k--)
                 {
                     m_TopTen[k] = m_TopTen[k - 1];
                 }
-				
+
                 m_TopTen[j] = i;
                 break;
             }
