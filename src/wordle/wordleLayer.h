@@ -3,7 +3,7 @@
 #include "querie.h"
 #include <vector>
 
-#define MAX_WORD_LIST_SIZE 32768
+#define MAX_WORD_LIST_SIZE 15000
 
 class WordleLayer
 {
